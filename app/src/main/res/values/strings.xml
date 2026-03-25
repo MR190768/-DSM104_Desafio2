@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Viajex</string>
     <string name="msg_inicio">Bienvenido</string>
+    <string name="sBtnLogin">Iniciar Sesión</string>
+    <string name="sBtnSingnin">Registrarse</string>
+
 </resources>

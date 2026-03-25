@@ -37,14 +37,14 @@
             android:textColor="@color/DarkPrimaryColor"
             android:textSize="65dp"
             android:textStyle="bold"
-            android:shadowColor="#000000"
-            android:shadowDx="2"
-            android:shadowDy="2"
+            android:shadowColor="@color/LightPrimaryColor"
+            android:shadowDx="5"
+            android:shadowDy="5"
             android:shadowRadius="5"
             />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/ed_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_mail"
@@ -58,7 +58,7 @@
             />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/ed_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_key"
@@ -68,18 +68,37 @@
             android:gravity="center_vertical"
             android:padding="12dp"
             android:hint="Contraseña"
+            android:layout_marginBottom="20dp"
             />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button"
-            android:background="@drawable/gradient"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="464dp"
-            app:backgroundTint="@null"
-            />
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sBtnLogin"
+                android:background="@drawable/gradient"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="464dp"
+                app:backgroundTint="@null"
+                android:layout_marginRight="20dp"
+                />
+            <Button
+                android:id="@+id/btn_signIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sBtnSingnin"
+                android:background="@drawable/gradient2"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="464dp"
+                app:backgroundTint="@null"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 
