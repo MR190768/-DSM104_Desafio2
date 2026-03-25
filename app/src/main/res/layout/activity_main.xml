@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background1"
-        android:scaleType="centerCrop"
         android:alpha="0.85"
-        />
+        android:scaleType="centerCrop"
+        android:src="@drawable/background1" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -20,6 +21,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,33 +30,39 @@
             android:id="@+id/textView"
             android:layout_width="299dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="177dp"
-            android:layout_marginBottom="400dp"
-            android:text="Bienbenido"
+            android:text="@string/msg_inicio"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="50dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="175dp"
+            />
 
         <EditText
             android:id="@+id/editTextText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name"
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="229dp" />
+            android:drawableLeft="@drawable/ic_mail"
+            android:ems="12"
+            android:inputType="textEmailAddress"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:hint="Correo"
+            />
 
         <EditText
             android:id="@+id/editTextTextPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:drawableLeft="@drawable/ic_key"
+            android:ems="12"
             android:inputType="textPassword"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="321dp" />
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:hint="Contraseña"
+            />
 
         <Button
             android:id="@+id/button"

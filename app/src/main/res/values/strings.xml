@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">desafio2</string>
+    <string name="app_name">Viajex</string>
+    <string name="msg_inicio">Bienvenido</string>
 </resources>
