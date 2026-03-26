@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Viajex</string>
-    <string name="msg_inicio">Bienvenido</string>
+    <string name="msg_opening">Bienvenido</string>
+    <string name="msg_register">Descubre tu proxima aventura</string>
+    <string name="msg_qAccaount">Ya tienes una cuenta? inicia sesion</string>
     <string name="sBtnLogin">Iniciar Sesión</string>
     <string name="sBtnSingnin">Registrarse</string>
 

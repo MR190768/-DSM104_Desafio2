@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitity_Registro">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.85"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="299dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="175dp"
+            android:fontFamily="@font/kaushan_script"
+            android:text="@string/msg_register"
+            android:textAlignment="center"
+            android:textColor="@color/DarkPrimaryColor"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:shadowColor="@color/LightPrimaryColor"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="5"
+            />
+
+        <EditText
+            android:id="@+id/ed_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_mail"
+            android:ems="12"
+            android:inputType="textEmailAddress"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:hint="Correo"
+
+            />
+
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_key"
+            android:ems="12"
+            android:inputType="textPassword"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:hint="Contraseña"
+            android:layout_marginBottom="20dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            >
+            <Button
+                android:id="@+id/btn_regiser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sBtnSingnin"
+                android:background="@drawable/gradient"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="464dp"
+                app:backgroundTint="@null"
+                android:layout_marginRight="20dp"
+                />
+
+            <Button
+                android:id="@+id/btn_signIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient2"
+                android:drawableLeft="@drawable/ic_google"
+                android:text="@string/sBtnSingnin"
+                app:backgroundTint="@null"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="464dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_alreadyAccaount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/msg_qAccaount"
+            android:textStyle="bold"
+            android:textColor="@color/PrimaryText"
+            android:textSize="18dp"
+            android:shadowColor="@color/LightPrimaryColor"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

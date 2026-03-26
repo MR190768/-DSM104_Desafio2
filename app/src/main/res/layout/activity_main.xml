@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="175dp"
             android:fontFamily="@font/kaushan_script"
-            android:text="@string/msg_inicio"
+            android:text="@string/msg_opening"
             android:textAlignment="center"
             android:textColor="@color/DarkPrimaryColor"
             android:textSize="65dp"
