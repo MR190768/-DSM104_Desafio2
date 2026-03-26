@@ -3,6 +3,7 @@ package com.example.desafio2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_signIn).setOnClickListener {
             val intent = Intent(this, Activitity_Registro::class.java)
             startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.btn_login).setOnClickListener {
+            val email=findViewById<EditText>(R.id.ed_email).text.toString()
+            val password=findViewById<EditText>(R.id.ed_password).text.toString()
+            loginUser(email,password)
         }
     }
 
