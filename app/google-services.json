@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "247194505087",
+    "project_id": "laboratorio-b40b2",
+    "storage_bucket": "laboratorio-b40b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247194505087:android:8e8474343539d8b489144a",
+        "android_client_info": {
+          "package_name": "com.example.desafio2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247194505087-8lbqp8lfs83lh0nr83gv2qibqvaihnfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-_t0UN8Ok_xM9Wkfk9aQOBa0p0j2dctY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247194505087-8lbqp8lfs83lh0nr83gv2qibqvaihnfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
