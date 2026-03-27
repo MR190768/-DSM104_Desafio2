@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 
+
 class Activitity_Registro : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

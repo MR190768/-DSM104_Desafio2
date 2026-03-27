@@ -35,8 +35,8 @@
             android:textColor="#212121"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnEdit"
-            app:layout_constraintStart_toEndOf="@+id/imgDestino"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Edit"
+            app:layout_constraintStart_toEndOf="@+id/img_place"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -46,8 +46,8 @@
             android:text="País"
             android:textColor="#757575"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tvNombre"
-            app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <TextView
             android:id="@+id/tv_precio"
@@ -59,8 +59,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvPais"
-            app:layout_constraintTop_toBottomOf="@+id/tvPais" />
+            app:layout_constraintStart_toStartOf="@+id/tv_pais"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pais" />
 
         <ImageButton
             android:id="@+id/btn_Edit"
@@ -69,7 +69,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Editar"
             android:src="@android:drawable/ic_menu_edit"
-            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Delete"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#4CAF50" />
 
