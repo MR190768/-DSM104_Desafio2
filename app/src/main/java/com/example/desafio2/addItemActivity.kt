@@ -1,18 +1,36 @@
 package com.example.desafio2
 
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import coil.load
+import com.cloudinary.android.MediaManager
+import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
 import com.google.firebase.database.FirebaseDatabase
-import android.widget.Toast
 
 class addItemActivity : AppCompatActivity() {
+
+    private var imageUri: Uri? = null
+    private lateinit var imageView: ImageView
+
+    private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri != null) {
+            imageUri = uri
+            imageView.load(uri) // Uso de Coil para mostrar la imagen seleccionada
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,7 +41,10 @@ class addItemActivity : AppCompatActivity() {
             insets
         }
 
+        imageView = findViewById(R.id.imageView2)
+        val btnGetImg: Button = findViewById(R.id.btn_getIMG)
         val spinner: Spinner = findViewById(R.id.countries_spinner)
+
         ArrayAdapter.createFromResource(
             this,
             R.array.Countries_array,
@@ -33,18 +54,55 @@ class addItemActivity : AppCompatActivity() {
             spinner.adapter = adapter
         }
 
+        btnGetImg.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
+        }
+
         findViewById<Button>(R.id.btn_registeritem).setOnClickListener {
             val nombre = findViewById<EditText>(R.id.editTextText).text.toString()
-            val pais = findViewById<Spinner>(R.id.countries_spinner).selectedItem.toString()
-            val precio= findViewById<EditText>(R.id.editTextNumberDecimal).text.toString().toDouble()
+            val pais = spinner.selectedItem.toString()
+            val precioText = findViewById<EditText>(R.id.editTextNumberDecimal).text.toString()
             val descripcion = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
-            registrarDestino(nombre, pais, precio, descripcion)
 
+            if (nombre.isEmpty() || precioText.isEmpty() || imageUri == null) {
+                Toast.makeText(this, "Por favor complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val precio = precioText.toDouble()
+            subirImagenYRegistrar(nombre, pais, precio, descripcion)
         }
     }
 
-    fun registrarDestino(nombre: String, pais: String, precio: Double, descripcion: String) {
+    private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double, descripcion: String) {
+        val requestId = MediaManager.get().upload(imageUri)
+            .callback(object : UploadCallback {
+                override fun onStart(requestId: String?) {
+                    Toast.makeText(applicationContext, "Iniciando subida...", Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
+                    // Opcional: mostrar progreso
+                }
+
+                override fun onSuccess(requestId: String?, resultData: Map<*, *>?) {
+                    val imageUrl = resultData?.get("secure_url") as? String
+                    if (imageUrl != null) {
+                        registrarDestino(nombre, pais, precio, descripcion, imageUrl)
+                    }
+                }
+
+                override fun onError(requestId: String?, error: ErrorInfo?) {
+                    Toast.makeText(applicationContext, "Error al subir imagen: ${error?.description}", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+                }
+            })
+            .dispatch()
+    }
+
+    private fun registrarDestino(nombre: String, pais: String, precio: Double, descripcion: String, imageUrl: String) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("destinos")
 
@@ -56,18 +114,17 @@ class addItemActivity : AppCompatActivity() {
             pais = pais,
             descripcion = descripcion,
             precio = precio,
-            imageUrl = null
+            imageUrl = imageUrl
         )
 
         if (id != null) {
             myRef.child(id).setValue(nuevoDestino)
                 .addOnSuccessListener {
-
                     Toast.makeText(this, "Destino guardado con éxito", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
                 .addOnFailureListener { e ->
-
-                    Toast.makeText(this, "error ${e.toString()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error al guardar en Firebase: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }
     }

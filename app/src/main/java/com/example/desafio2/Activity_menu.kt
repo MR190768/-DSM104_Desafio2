@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -51,23 +52,18 @@ class Activity_menu : AppCompatActivity() {
                     val destino = data.getValue(Destino::class.java)
                     if (destino != null) listaDestinos.add(destino)
                 }
-                // Actualizar el adaptador con los datos reales
                 adapter.updateData(listaDestinos)
             }
 
             override fun onCancelled(error: DatabaseError) {
-
             }
         })
-
-
     }
 }
 
 class DestinoAdapter(private var listaDestinos: List<Destino>) :
     RecyclerView.Adapter<DestinoAdapter.DestinoViewHolder>() {
 
-    // 1. ViewHolder: Enlaza los componentes del XML (item_tarjeta.xml)
     class DestinoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imgDestino: ImageView = view.findViewById(R.id.img_place)
         val tvNombre: TextView = view.findViewById(R.id.tv_name)
@@ -90,17 +86,23 @@ class DestinoAdapter(private var listaDestinos: List<Destino>) :
         holder.tvPais.text = destino.pais
         holder.tvPrecio.text = "$${destino.precio}"
 
-        // Aquí usarías una librería como Glide o Coil para cargar la imagen:
-        // Glide.with(holder.itemView.context).load(destino.imageUrl).into(holder.imgDestino)
+        // Uso de Coil para cargar la imagen desde la URL de Cloudinary
+        holder.imgDestino.load(destino.imageUrl) {
+            crossfade(true)
+            placeholder(android.R.drawable.ic_menu_gallery)
+            error(android.R.drawable.stat_notify_error)
+        }
 
         holder.btnDelete.setOnClickListener {
-            // Lógica para eliminar de Firebase
+            val database = FirebaseDatabase.getInstance().getReference("destinos")
+            destino.id?.let { id ->
+                database.child(id).removeValue()
+            }
         }
     }
 
     override fun getItemCount(): Int = listaDestinos.size
 
-    // Método para actualizar la lista cuando los datos cambien en Firebase
     fun updateData(newList: List<Destino>) {
         listaDestinos = newList
         notifyDataSetChanged()

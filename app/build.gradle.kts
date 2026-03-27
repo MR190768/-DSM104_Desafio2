@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.desafio2"
-    compileSdk = 35 // Cambiado de 36 a 35 (Estándar actual estable)
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.desafio2"
@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-    // 1. Importar el BoM de Firebase primero
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.androidx.core.ktx)
@@ -41,18 +40,18 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
-    // 2. RecyclerView que faltaba
     implementation(libs.androidx.recyclerview)
 
-    // 3. Firebase (Sin versiones individuales, el BoM las gestiona)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
 
-    // 4. Credenciales y Google ID
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+
+    // Cloudinary y Coil
+    implementation(libs.cloudinary.android)
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
