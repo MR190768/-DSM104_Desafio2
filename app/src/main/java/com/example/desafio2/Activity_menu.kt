@@ -7,6 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 class Activity_menu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,3 +33,4 @@ class Activity_menu : AppCompatActivity() {
 
     }
 }
+
