@@ -37,14 +37,18 @@ class Activity_menu : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewDestinos)
+        //Es la conexion a la base de datos de firebase
         val database = FirebaseDatabase.getInstance().getReference("destinos")
 
+        //Configura le recyclerView para usar un linarlayout
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val adapter = DestinoAdapter(emptyList())
         recyclerView.adapter = adapter
 
+        //permite actulizar la lista ante cualquier cambio en la base da datos
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val listaDestinos = mutableListOf<Destino>()
@@ -64,6 +68,7 @@ class Activity_menu : AppCompatActivity() {
 class DestinoAdapter(private var listaDestinos: List<Destino>) :
     RecyclerView.Adapter<DestinoAdapter.DestinoViewHolder>() {
 
+        //Define la vista de cada elemento de la lista
     class DestinoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imgDestino: ImageView = view.findViewById(R.id.img_place)
         val tvNombre: TextView = view.findViewById(R.id.tv_name)
@@ -73,12 +78,14 @@ class DestinoAdapter(private var listaDestinos: List<Destino>) :
         val btnEdit: ImageButton = view.findViewById(R.id.btn_Edit)
     }
 
+    //Enalaza con el layout modelo para le reycler
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinoViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.card_item, parent, false)
         return DestinoViewHolder(view)
     }
 
+    //Vincula los datos con la vista, la variable postion indica la posicion del elemento
     override fun onBindViewHolder(holder: DestinoViewHolder, position: Int) {
         val destino = listaDestinos[position]
 
@@ -93,6 +100,7 @@ class DestinoAdapter(private var listaDestinos: List<Destino>) :
             error(android.R.drawable.stat_notify_error)
         }
 
+        //Agrega funcionalidad a cada botno eleminar
         holder.btnDelete.setOnClickListener {
             val database = FirebaseDatabase.getInstance().getReference("destinos")
             destino.id?.let { id ->

@@ -1,5 +1,4 @@
 package com.example.desafio2
-
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -21,12 +20,13 @@ import com.google.firebase.database.FirebaseDatabase
 
 class addItemActivity : AppCompatActivity() {
 
-    private var imageUri: Uri? = null
+    private var imgUri: Uri? = null //Uniform Resource Identifier(URI)  es una cadena de caracteres única que identifica un recurso
     private lateinit var imageView: ImageView
 
+    // Crea un objeto de ActivityResultLauncher para manejar la seleccion de imagenes
     private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
-            imageUri = uri
+            imgUri = uri
             imageView.load(uri) // Uso de Coil para mostrar la imagen seleccionada
         }
     }
@@ -41,10 +41,12 @@ class addItemActivity : AppCompatActivity() {
             insets
         }
 
-        imageView = findViewById(R.id.imageView2)
+
+        imageView = findViewById(R.id.img_selected)
         val btnGetImg: Button = findViewById(R.id.btn_getIMG)
         val spinner: Spinner = findViewById(R.id.countries_spinner)
 
+        //Asigna el string array al spinner
         ArrayAdapter.createFromResource(
             this,
             R.array.Countries_array,
@@ -53,6 +55,7 @@ class addItemActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
+
 
         btnGetImg.setOnClickListener {
             imagePickerLauncher.launch("image/*")
@@ -64,7 +67,7 @@ class addItemActivity : AppCompatActivity() {
             val precioText = findViewById<EditText>(R.id.editTextNumberDecimal).text.toString()
             val descripcion = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
 
-            if (nombre.isEmpty() || precioText.isEmpty() || imageUri == null) {
+            if (nombre.isEmpty() || precioText.isEmpty() || imgUri == null) {
                 Toast.makeText(this, "Por favor complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -74,8 +77,12 @@ class addItemActivity : AppCompatActivity() {
         }
     }
 
+    //Utiliza el SDK de cloudinary para subir al imagen selccionada
+    // si es subida tiene exito retorna el URL de donde subido la imagen para
+    // luego invocar la funcion de registro en firebase
+
     private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double, descripcion: String) {
-        val requestId = MediaManager.get().upload(imageUri)
+        val requestId = MediaManager.get().upload(imgUri)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String?) {
                     Toast.makeText(applicationContext, "Iniciando subida...", Toast.LENGTH_SHORT).show()
