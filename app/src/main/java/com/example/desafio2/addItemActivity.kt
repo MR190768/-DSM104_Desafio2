@@ -16,12 +16,22 @@ import coil.load
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class addItemActivity : AppCompatActivity() {
 
     private var imgUri: Uri? = null //Uniform Resource Identifier(URI)  es una cadena de caracteres única que identifica un recurso
     private lateinit var imageView: ImageView
+
+    private var isEdit=false
+
+    private var Id=""
+    private var nombre=""
+    private var pais=""
+    private var precio:Double?=0.0
+    private var descripcion=""
+    private var imageUrl=""
 
     // Crea un objeto de ActivityResultLauncher para manejar la seleccion de imagenes
     private val imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -41,10 +51,12 @@ class addItemActivity : AppCompatActivity() {
             insets
         }
 
-
         imageView = findViewById(R.id.img_selected)
         val btnGetImg: Button = findViewById(R.id.btn_getIMG)
+        val ed_name= findViewById<EditText>(R.id.ed_name)
         val spinner: Spinner = findViewById(R.id.countries_spinner)
+        val ed_precio = findViewById<EditText>(R.id.ed_precio)
+        val ed_descripcion = findViewById<EditText>(R.id.ed_descripcion)
 
         //Asigna el string array al spinner
         ArrayAdapter.createFromResource(
@@ -56,23 +68,40 @@ class addItemActivity : AppCompatActivity() {
             spinner.adapter = adapter
         }
 
+        //si es isedit es true asigna los vloares editar a las variables correspondientes
+        isEdit = intent.getBooleanExtra("isEdit", false)
+        if(isEdit){
+            Id = intent.getStringExtra("idE").toString()
+            nombre = intent.getStringExtra("nombreE").toString()
+            pais = intent.getStringExtra("paisE").toString()
+            precio = intent.getDoubleExtra("precioE", 0.0)
+            descripcion = intent.getStringExtra("descripcionE").toString()
+            imageUrl = intent.getStringExtra("imageUrlE").toString()
+            imgUri= Uri.parse(imageUrl)
+
+            ed_name.setText(nombre)
+            val paises = spinner.adapter as ArrayAdapter<String>
+            val position = paises.getPosition(pais)
+            spinner.setSelection(position)
+            ed_precio.setText(precio.toString())
+            ed_descripcion.setText(descripcion)
+            imageView.load(imageUrl)
+        }
 
         btnGetImg.setOnClickListener {
             imagePickerLauncher.launch("image/*")
         }
 
         findViewById<Button>(R.id.btn_registeritem).setOnClickListener {
-            val nombre = findViewById<EditText>(R.id.editTextText).text.toString()
-            val pais = spinner.selectedItem.toString()
-            val precioText = findViewById<EditText>(R.id.editTextNumberDecimal).text.toString()
-            val descripcion = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
+            nombre = ed_name.text.toString()
+            pais = spinner.selectedItem.toString()
+            precio = ed_precio.text.toString().toDoubleOrNull()
+            descripcion = ed_descripcion.text.toString()
 
-            if (nombre.isEmpty() || precioText.isEmpty() || imgUri == null) {
+            if (nombre.isEmpty() || precio==null || imgUri == null) {
                 Toast.makeText(this, "Por favor complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            val precio = precioText.toDouble()
             subirImagenYRegistrar(nombre, pais, precio, descripcion)
         }
     }
@@ -81,7 +110,8 @@ class addItemActivity : AppCompatActivity() {
     // si es subida tiene exito retorna el URL de donde subido la imagen para
     // luego invocar la funcion de registro en firebase
 
-    private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double, descripcion: String) {
+    private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double?, descripcion: String) {
+        if(imgUri!= Uri.parse(imageUrl)){
         val requestId = MediaManager.get().upload(imgUri)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String?) {
@@ -93,9 +123,9 @@ class addItemActivity : AppCompatActivity() {
                 }
 
                 override fun onSuccess(requestId: String?, resultData: Map<*, *>?) {
-                    val imageUrl = resultData?.get("secure_url") as? String
-                    if (imageUrl != null) {
-                        registrarDestino(nombre, pais, precio, descripcion, imageUrl)
+                    val imageURL = resultData?.get("secure_url") as? String
+                    if (imageURL != null) {
+                        registrarDestino(nombre, pais, precio, descripcion, imageURL)
                     }
                 }
 
@@ -107,13 +137,23 @@ class addItemActivity : AppCompatActivity() {
                 }
             })
             .dispatch()
+            }
+        else{
+            registrarDestino(nombre, pais, precio, descripcion, imageUrl)
+        }
     }
 
-    private fun registrarDestino(nombre: String, pais: String, precio: Double, descripcion: String, imageUrl: String) {
+    private fun registrarDestino(nombre: String, pais: String, precio: Double?, descripcion: String, imgUrl: String) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("destinos")
 
-        val id = myRef.push().key
+        var id: String? = null
+
+        if (isEdit){
+            id=Id
+        }else{
+            id = myRef.push().key
+        }
 
         val nuevoDestino = Destino(
             id = id,
@@ -121,7 +161,7 @@ class addItemActivity : AppCompatActivity() {
             pais = pais,
             descripcion = descripcion,
             precio = precio,
-            imageUrl = imageUrl
+            imageUrl = imgUrl
         )
 
         if (id != null) {

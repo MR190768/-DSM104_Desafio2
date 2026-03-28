@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class Activity_menu : AppCompatActivity() {
-    val intent = Intent(this, addItemActivity::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +33,9 @@ class Activity_menu : AppCompatActivity() {
             insets
         }
 
+        val intent = Intent(this, addItemActivity::class.java)
         findViewById<FloatingActionButton>(R.id.btn_addItem).setOnClickListener {
+            intent.putExtra("isEdit",false)
             startActivity(intent)
         }
 
@@ -119,7 +120,7 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
             intentE.putExtra("precioE", destino.precio)
             intentE.putExtra("descripcionE", destino.descripcion)
             intentE.putExtra("imageUrlE", destino.imageUrl)
-            //Utilizamos itemView para referenciar y dar contexto del layout del item de la lista
+            //Se usa itemView para referenciar y dar contexto del layout del item de la lista
             holder.itemView.context.startActivity(intentE)
         }
     }

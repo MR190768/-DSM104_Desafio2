@@ -56,7 +56,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/ed_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -72,7 +72,7 @@
             android:ems="10" />
 
         <EditText
-            android:id="@+id/editTextNumberDecimal"
+            android:id="@+id/ed_precio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -80,7 +80,7 @@
             android:inputType="numberDecimal" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/ed_descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
