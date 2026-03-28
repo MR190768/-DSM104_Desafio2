@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class Activity_menu : AppCompatActivity() {
+    val intent = Intent(this, addItemActivity::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +35,6 @@ class Activity_menu : AppCompatActivity() {
         }
 
         findViewById<FloatingActionButton>(R.id.btn_addItem).setOnClickListener {
-            val intent = Intent(this, addItemActivity::class.java)
             startActivity(intent)
         }
 
@@ -45,7 +46,7 @@ class Activity_menu : AppCompatActivity() {
         //Configura le recyclerView para usar un linarlayout
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val adapter = DestinoAdapter(emptyList())
+        val adapter = DestinoAdapter(emptyList(),intent)
         recyclerView.adapter = adapter
 
         //permite actulizar la lista ante cualquier cambio en la base da datos
@@ -65,10 +66,12 @@ class Activity_menu : AppCompatActivity() {
     }
 }
 
-class DestinoAdapter(private var listaDestinos: List<Destino>) :
+class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
     RecyclerView.Adapter<DestinoAdapter.DestinoViewHolder>() {
 
         //Define la vista de cada elemento de la lista
+        private val intentE = intent
+
     class DestinoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imgDestino: ImageView = view.findViewById(R.id.img_place)
         val tvNombre: TextView = view.findViewById(R.id.tv_name)
@@ -106,6 +109,18 @@ class DestinoAdapter(private var listaDestinos: List<Destino>) :
             destino.id?.let { id ->
                 database.child(id).removeValue()
             }
+        }
+
+        holder.btnEdit.setOnClickListener {
+            intentE.putExtra("isEdit",true)
+            intentE.putExtra("idE", destino.id)
+            intentE.putExtra("nombreE", destino.nombre)
+            intentE.putExtra("paisE", destino.pais)
+            intentE.putExtra("precioE", destino.precio)
+            intentE.putExtra("descripcionE", destino.descripcion)
+            intentE.putExtra("imageUrlE", destino.imageUrl)
+            //Utilizamos itemView para referenciar y dar contexto del layout del item de la lista
+            holder.itemView.context.startActivity(intentE)
         }
     }
 

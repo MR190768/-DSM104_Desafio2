@@ -4,6 +4,7 @@
     <string name="msg_register">Descubre tu proxima aventura</string>
     <string name="msg_qAccaount">Ya tienes una cuenta? inicia sesion</string>
     <string name="title_addItem">Ingrese los datos del nuevo destino</string>
+    <string name="title_editItem">Ingrese los datos del a modificar</string>
     <string name="sBtnimg">Eligir imagen..</string>
     <string name="sBtnAddiem">Agregar lugar</string>
     <string name="sBtnLogin">Iniciar Sesión</string>
