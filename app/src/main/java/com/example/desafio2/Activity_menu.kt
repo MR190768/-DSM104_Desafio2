@@ -79,6 +79,8 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
         val tvNombre: TextView = view.findViewById(R.id.tv_name)
         val tvPais: TextView = view.findViewById(R.id.tv_pais)
         val tvPrecio: TextView = view.findViewById(R.id.tv_precio)
+
+        val tvDescripcion: TextView = view.findViewById(R.id.tv_description)
         val btnDelete: ImageButton = view.findViewById(R.id.btn_Delete)
         val btnEdit: ImageButton = view.findViewById(R.id.btn_Edit)
     }
@@ -119,6 +121,7 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
         holder.tvNombre.text = destino.nombre
         holder.tvPais.text = destino.pais
         holder.tvPrecio.text = "$${destino.precio}"
+        holder.tvDescripcion.text = destino.descripcion
 
         // Uso de Coil para cargar la imagen desde la URL de Cloudinary
         holder.imgDestino.load(destino.imageUrl) {

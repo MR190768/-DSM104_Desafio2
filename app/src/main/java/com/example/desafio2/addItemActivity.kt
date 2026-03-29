@@ -60,7 +60,6 @@ class addItemActivity : AppCompatActivity() {
         val ed_descripcion = findViewById<EditText>(R.id.ed_descripcion)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val backAr = findViewById<ImageView>(R.id.backAr)
-        val tv_titulo = findViewById<EditText>(R.id.tv_titulo)
 
 
         //Asigna el string array al spinner
@@ -87,7 +86,6 @@ class addItemActivity : AppCompatActivity() {
             descripcion = intent.getStringExtra("descripcionE").toString()
             imageUrl = intent.getStringExtra("imageUrlE").toString()
             imgUri= Uri.parse(imageUrl)
-            tv_titulo.setText("Editar Destino")
 
             ed_name.setText(nombre)
             val paises = spinner.adapter as ArrayAdapter<String>
@@ -108,7 +106,7 @@ class addItemActivity : AppCompatActivity() {
             precio = ed_precio.text.toString().toDoubleOrNull()
             descripcion = ed_descripcion.text.toString()
 
-            if (nombre.isEmpty() || precio==null || imgUri == null) {
+            if (nombre.isEmpty() || precio==null || imgUri == null || descripcion.isEmpty() || descripcion.length<=20) {
                 Toast.makeText(this, "Por favor complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
