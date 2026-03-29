@@ -89,16 +89,6 @@
                 android:layout_marginRight="20dp"
                 />
 
-            <Button
-                android:id="@+id/btn_registerGoogle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient2"
-                android:drawableLeft="@drawable/ic_google"
-                android:text="@string/sBtnSingnin"
-                app:backgroundTint="@null"
-                tools:layout_editor_absoluteX="160dp"
-                tools:layout_editor_absoluteY="464dp" />
         </LinearLayout>
 
         <TextView
@@ -108,7 +98,7 @@
             android:text="@string/msg_qAccaount"
             android:textStyle="bold"
             android:textColor="@color/PrimaryText"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:shadowColor="@color/LightPrimaryColor"
             android:shadowDx="3"
             android:shadowDy="3"
