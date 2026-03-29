@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -57,6 +58,7 @@ class addItemActivity : AppCompatActivity() {
         val spinner: Spinner = findViewById(R.id.countries_spinner)
         val ed_precio = findViewById<EditText>(R.id.ed_precio)
         val ed_descripcion = findViewById<EditText>(R.id.ed_descripcion)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         //Asigna el string array al spinner
         ArrayAdapter.createFromResource(
@@ -102,7 +104,7 @@ class addItemActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            subirImagenYRegistrar(nombre, pais, precio, descripcion)
+            subirImagenYRegistrar(nombre, pais, precio, descripcion,progressBar)
         }
     }
 
@@ -110,11 +112,12 @@ class addItemActivity : AppCompatActivity() {
     // si es subida tiene exito retorna el URL de donde subido la imagen para
     // luego invocar la funcion de registro en firebase
 
-    private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double?, descripcion: String) {
+    private fun subirImagenYRegistrar(nombre: String, pais: String, precio: Double?, descripcion: String,progressBar: ProgressBar) {
         if(imgUri!= Uri.parse(imageUrl)){
         val requestId = MediaManager.get().upload(imgUri)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String?) {
+                    progressBar.visibility = ProgressBar.VISIBLE
                     Toast.makeText(applicationContext, "Iniciando subida...", Toast.LENGTH_SHORT).show()
                 }
 
@@ -123,6 +126,7 @@ class addItemActivity : AppCompatActivity() {
                 }
 
                 override fun onSuccess(requestId: String?, resultData: Map<*, *>?) {
+                    progressBar.visibility = ProgressBar.GONE
                     val imageURL = resultData?.get("secure_url") as? String
                     if (imageURL != null) {
                         registrarDestino(nombre, pais, precio, descripcion, imageURL)
@@ -130,6 +134,7 @@ class addItemActivity : AppCompatActivity() {
                 }
 
                 override fun onError(requestId: String?, error: ErrorInfo?) {
+                    progressBar.visibility = ProgressBar.GONE
                     Toast.makeText(applicationContext, "Error al subir imagen: ${error?.description}", Toast.LENGTH_SHORT).show()
                 }
 
