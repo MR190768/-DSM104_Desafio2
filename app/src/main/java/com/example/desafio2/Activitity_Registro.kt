@@ -36,6 +36,10 @@ class Activitity_Registro : AppCompatActivity() {
         findViewById<Button>(R.id.btn_regiser).setOnClickListener {
             val email=findViewById<EditText>(R.id.ed_email).text.toString()
             val password=findViewById<EditText>(R.id.ed_password).text.toString()
+            if (email.isEmpty() || password.isEmpty()){
+                Toast.makeText(this, "Por favor ingrese correo y contraseña", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             registerUser(email,password)
         }
 
