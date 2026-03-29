@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -89,6 +90,28 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
         return DestinoViewHolder(view)
     }
 
+    private fun confirmarEliminacion(context: Activity_menu,id:String?) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle("¿Eliminar elemento?")
+            .setMessage("Esta acción no se puede deshacer. ¿Estás seguro de que quieres borrarlo?")
+            .setCancelable(false)
+
+            // Botón de Confirmar
+            .setPositiveButton("Eliminar") { dialog, which ->
+                val database = FirebaseDatabase.getInstance().getReference("destinos")
+                id?.let { id ->
+                    database.child(id).removeValue()
+                }
+            }
+
+            // Botón de Cancelar
+            .setNegativeButton("Cancelar") { dialog, which ->
+                dialog.dismiss()
+            }
+
+            .show()
+    }
+
     //Vincula los datos con la vista, la variable postion indica la posicion del elemento
     override fun onBindViewHolder(holder: DestinoViewHolder, position: Int) {
         val destino = listaDestinos[position]
@@ -104,12 +127,9 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
             error(android.R.drawable.stat_notify_error)
         }
 
-        //Agrega funcionalidad a cada botno eleminar
+        //boton eliminar
         holder.btnDelete.setOnClickListener {
-            val database = FirebaseDatabase.getInstance().getReference("destinos")
-            destino.id?.let { id ->
-                database.child(id).removeValue()
-            }
+            confirmarEliminacion(holder.itemView.context as Activity_menu,destino.id)
         }
 
         holder.btnEdit.setOnClickListener {
@@ -131,4 +151,5 @@ class DestinoAdapter(private var listaDestinos: List<Destino>,intent : Intent) :
         listaDestinos = newList
         notifyDataSetChanged()
     }
+
 }

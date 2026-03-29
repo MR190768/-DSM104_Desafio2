@@ -6,15 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".addItemActivity">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -39,133 +30,149 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:id="@+id/backAr"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/ic_arrow_back" />
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="639dp"
-        android:gravity="center"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="@string/title_addItem"
-            android:textAlignment="center"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Nombre del lugar">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_name"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_letter_t"
-                android:inputType="text"
-                android:ems="12"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:padding="12dp"
-                android:maxLength="50" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Spinner
-            android:id="@+id/countries_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:ems="10" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Precio">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_precio"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_dollar"
-                android:inputType="numberDecimal"
-                android:ems="12"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:padding="12dp"
-                android:maxLength="50" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Descripcion"
-            app:counterEnabled="true"
-            app:counterMaxLength="50"
-            app:counterTextColor="@color/black"
-            app:helperText="Minimo 20 caracteres">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_descripcion"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_description"
-                android:ems="12"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:padding="12dp"
-                android:maxLength="50"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_selected"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/background1"
-                android:layout_marginRight="20dp"/>
 
-            <Button
-                android:id="@+id/btn_getIMG"
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/title_addItem"
+                android:textAlignment="center"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient2"
-                android:text="@string/sBtnimg"
+                android:hint="Nombre del lugar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_name"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_letter_t"
+                    android:drawablePadding="10dp"
+                    android:ems="12"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/countries_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:ems="10" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Precio">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_precio"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_dollar"
+                    android:drawablePadding="10dp"
+                    android:ems="12"
+                    android:gravity="center_vertical"
+                    android:inputType="numberDecimal"
+                    android:maxLength="50"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Descripcion"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:counterTextColor="@color/black"
+                app:helperText="Minimo 20 caracteres">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_descripcion"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_description"
+                    android:drawablePadding="10dp"
+                    android:ems="12"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_selected"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background1" />
+
+                <Button
+                    android:id="@+id/btn_getIMG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient2"
+                    android:text="@string/sBtnimg"
+                    app:backgroundTint="@null"
+                    tools:layout_editor_absoluteX="160dp"
+                    tools:layout_editor_absoluteY="464dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_registeritem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/gradient"
+                android:text="@string/sBtnAddiem"
                 app:backgroundTint="@null"
                 tools:layout_editor_absoluteX="160dp"
                 tools:layout_editor_absoluteY="464dp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_registeritem"
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/gradient"
-            android:text="@string/sBtnAddiem"
-            app:backgroundTint="@null"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="464dp" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:visibility="gone" />
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,6 +59,9 @@ class addItemActivity : AppCompatActivity() {
         val ed_precio = findViewById<EditText>(R.id.ed_precio)
         val ed_descripcion = findViewById<EditText>(R.id.ed_descripcion)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val backAr = findViewById<ImageView>(R.id.backAr)
+        val tv_titulo = findViewById<EditText>(R.id.tv_titulo)
+
 
         //Asigna el string array al spinner
         ArrayAdapter.createFromResource(
@@ -68,6 +71,10 @@ class addItemActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
+        }
+
+        backAr.setOnClickListener {
+            finish()
         }
 
         //si es isedit es true asigna los vloares editar a las variables correspondientes
@@ -80,6 +87,7 @@ class addItemActivity : AppCompatActivity() {
             descripcion = intent.getStringExtra("descripcionE").toString()
             imageUrl = intent.getStringExtra("imageUrlE").toString()
             imgUri= Uri.parse(imageUrl)
+            tv_titulo.setText("Editar Destino")
 
             ed_name.setText(nombre)
             val paises = spinner.adapter as ArrayAdapter<String>
